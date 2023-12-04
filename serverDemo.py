@@ -1,4 +1,4 @@
-from fedsync.models import FedKeras
+from fedsync.data import FedKeras
 import multiprocessing
 import demo
 
