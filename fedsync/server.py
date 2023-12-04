@@ -72,7 +72,8 @@ class FedData:
                     self._lock.release()
                     return jsonify({'error': "Incompatible specification: please contact the server owner."})
                 task = Task(data["params"], repetition)
-                self._tasks[repetition] = task
+                #self._tasks[repetition] = task
+                self._tasks = {repetition: task}  # keep track of only the last task
                 self._pending.append(task)
                 self._repetition = max(self._repetition, repetition)
                 self._lock.release()

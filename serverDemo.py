@@ -11,7 +11,7 @@ class SimulatedServer(multiprocessing.Process):
     def run(self):
         from waitress import serve
         x, y = demo.train_data(100)
-        model = FedKeras(demo.model(), lambda model: demo.train(model, x, y))
+        model = FedKeras(demo.model(), lambda model, repetition: demo.train(model, repetition, x, y))
         app = model.app()
         print("Simulated server started:", str(self.kwargs))
         serve(app, **self.kwargs)

@@ -19,12 +19,15 @@ def model():
             layers.Dense(num_classes, activation="softmax"),
         ]
     )
-    model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+    model.compile(metrics=["accuracy"])
     return model
 
 
-def train(model, x, y):
-    model.fit(x, y, batch_size=128, epochs=15, validation_split=0.1)#, verbose=0)
+def train(model, repetition, x, y):
+    # degrade the learning rate (https://arxiv.org/pdf/1907.02189.pdf)
+    model.compile(loss="categorical_crossentropy",
+                  optimizer=keras.optimizers.Adam(learning_rate=0.001*0.9**repetition))
+    model.fit(x, y, batch_size=128, epochs=15)#, verbose=0)
 
 
 def train_data(num_samples=5000):

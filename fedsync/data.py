@@ -46,7 +46,7 @@ class FedKeras(FedData):
 
     def receive(self, encoding, repetition):
         self.model.set_weights(self._deserialize(encoding))
-        self.fit(self.model)
+        self.fit(self.model, repetition)
 
     def merge(self, encodings, repetition):
         weight_lists = [self._deserialize(enc) for enc in encodings]
