@@ -1,6 +1,11 @@
 # FedSync
 
-Synchronized data exchanges between federated devices.
+Synchronized federated algorithms across remote devices.
+
+:warning: These algorithms requre constant communication.
+
+**Author:** Emmanouil (Manios) Krasanakis<br>
+**License:** Apache 2.0
 
 ## Fedavg on Keras models
 You need to run several servers and clients. Each 
@@ -18,7 +23,7 @@ def train(model):
     model.fit(x, y, epochs=...)
     
 model = ... # create a keras model
-model = FedKeras(, train)
+model = FedKeras(model, train)
 ```
 
 
