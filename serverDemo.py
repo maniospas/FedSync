@@ -1,3 +1,5 @@
+import random
+
 from fedsync.data import FedKeras
 import multiprocessing
 import demo
@@ -10,10 +12,10 @@ class SimulatedServer(multiprocessing.Process):
 
     def run(self):
         from waitress import serve
-        x, y = demo.train_data(100)
+        x, y = demo.train_data(random.randint(10, 50)*random.randint(10, 50))
         model = FedKeras(demo.model(), lambda model, repetition: demo.train(model, repetition, x, y))
         app = model.app()
-        print("Simulated server started:", str(self.kwargs))
+        print(f"Simulated server started: {str(self.kwargs)} with {int(x.shape[0])} samples")
         serve(app, **self.kwargs)
 
 

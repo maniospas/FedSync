@@ -26,7 +26,7 @@ class FedData:
             # get task to work on (currently only one task in queue allowed, but this may change)
             self._lock.acquire()
             if not self._pending:
-                sleep(0.02)
+                sleep(0.2)
                 self._lock.release()
                 continue
             task = self._pending[0]

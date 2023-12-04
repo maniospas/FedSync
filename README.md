@@ -12,15 +12,15 @@ You need to run several servers and clients. Each
 server hosts a fragment of one dataset and an approximation
 of a machine learning model. It should also have a method
 that tries to further train this model over a fixed number 
-of epochs.
+of epochs while returning the model's weight.
 
 ```python
-from fedsync.server import FedData
 from fedsync.data import FedKeras
 
 x, y = ... # local training data
 def train(model):
     model.fit(x, y, epochs=...)
+    return x.shape[0]
     
 model = ... # create a keras model
 model = FedKeras(model, train)

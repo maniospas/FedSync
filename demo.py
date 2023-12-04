@@ -28,6 +28,7 @@ def train(model, repetition, x, y):
     model.compile(loss="categorical_crossentropy",
                   optimizer=keras.optimizers.Adam(learning_rate=0.001*0.9**repetition))
     model.fit(x, y, batch_size=128, epochs=15)#, verbose=0)
+    return x.shape[0]
 
 
 def train_data(num_samples=5000):
