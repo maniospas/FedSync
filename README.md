@@ -8,7 +8,9 @@ Synchronized federated algorithms across remote devices.
 **License:** Apache 2.0
 
 ## Fedavg on Keras models
-You need to run several servers and clients. Each 
+
+### Server code
+You can run several servers and clients. Each 
 server hosts a fragment of one dataset and an approximation
 of a machine learning model. It should also have a method
 that tries to further train this model over a fixed number 
@@ -23,9 +25,22 @@ def train(model):
     return x.shape[0]
     
 model = ... # create a keras model
-model = FedKeras(model, train)
+fed_model = FedKeras(model, train)
 ```
 
+You can obtain a flask application instance and 
+serve it with an appropriate library like `waitress`.
+This is demonstrated in the following snippet:
+
+```python
+from waitress import serve
+
+app = fed_model.app()
+serve(app, host="127.0.0.1", port=8000)
+```
+
+
+## Client code
 
 The exact same model declaration should be present 
 across all servers and
@@ -34,6 +49,8 @@ declares the remote servers and constructs a federated
 averaging algorithm like so:
 
 ```python
+from fedsync.client import Federated, Remote
+
 model = ...  # the created keras model
 alg = Federated(
     data=FedKeras(model, None),
@@ -46,6 +63,9 @@ for round in range(...):
     alg.round() # a full federated averaging round to obtain an improved model
     # show some validation here (and can include a convergence check)
 ```
+
+The client model should have the exact same architecture as
+the servers.
 
 
 ## Custom data
